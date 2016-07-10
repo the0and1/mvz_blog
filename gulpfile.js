@@ -71,6 +71,9 @@ gulp.task("copyfiles", function() {
  */
 elixir(function(mix) {
 
+    // PHPunit testing.
+    mix.phpUnit();
+
     // Combine scripts
     mix.scripts([
             'js/jquery.js',
