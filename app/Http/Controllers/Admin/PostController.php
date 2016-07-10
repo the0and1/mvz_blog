@@ -2,86 +2,101 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
+use App\Jobs\PostFormFields;
 use App\Http\Requests;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Http\Controllers\Controller;
+use App\Post;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      return view('admin.post.index');
+//  protected $fillable =  ['title', 'subtitle', 'page_image', 'content_raw', 'meta_description','is_draft', 'published_at'];
+  /**
+   * Display a listing of the posts.
+   */
+  public function index()
+  {
+    return view('admin.post.index')
+      ->withPosts(Post::all());
+  }
+
+  /**
+   * Show the new post form
+   */
+  public function create()
+  {
+    $data = $this->dispatch(new PostFormFields());
+
+    return view('admin.post.create', $data);
+  }
+
+  /**
+   * Store a newly created Post
+   *
+   * @param PostCreateRequest $request
+   */
+  public function store(PostCreateRequest $request)
+  {
+    $post = Post::create($request->postFillData());
+    $post->syncTags($request->get('tags', []));
+
+    return redirect()
+      ->route('admin.post.index')
+      ->withSuccess('New Post Successfully Created.');
+  }
+
+  /**
+   * Show the post edit form
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function edit($id)
+  {
+    $data = $this->dispatch(new PostFormFields($id));
+
+    return view('admin.post.edit', $data);
+  }
+
+  /**
+   * Update the Post
+   *
+   * @param PostUpdateRequest $request
+   * @param int  $id
+   */
+  public function update(PostUpdateRequest $request, $id)
+  {
+    $post = Post::findOrFail($id);
+    $post->fill($request->postFillData());
+    $post->save();
+    $post->syncTags($request->get('tags', []));
+
+    if ($request->action === 'continue') {
+      return redirect()
+        ->back()
+        ->withSuccess('Post saved.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    return redirect()
+      ->route('admin.post.index')
+      ->withSuccess('Post saved.');
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function destroy($id)
+  {
+    $post = Post::findOrFail($id);
+    $post->tags()->detach();
+    $post->delete();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    return redirect()
+      ->route('admin.post.index')
+      ->withSuccess('Post deleted.');
+  }
 }
