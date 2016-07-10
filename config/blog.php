@@ -1,10 +1,15 @@
 <?php
 
 return [
-  'title' => 'My Blog',
-  'posts_per_page' => 5,
+  'name' => "MVZ Blog",
+  'title' => "Laravel 5 blog",
+  'subtitle' => 'A clean blog written in Laravel 5.1',
+  'description' => 'This is my meta description',
+  'author' => 'Marius van Zundert',
+  'page_image' => 'home-bg.jpg',
+  'posts_per_page' => 10,
   'uploads' => [
     'storage' => 'local',
-    'webpath' => '/uploads',
+    'webpath' => '/uploads/',
   ],
 ];
