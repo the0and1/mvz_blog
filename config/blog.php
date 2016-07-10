@@ -2,7 +2,7 @@
 
 return [
   'name' => "MVZ Blog",
-  'title' => "Laravel 5 blog",
+  'title' => "Marius van Zundert's blog",
   'subtitle' => 'A clean blog written in Laravel 5.1',
   'description' => 'This is my meta description',
   'author' => 'Marius van Zundert',
