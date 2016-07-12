@@ -11,7 +11,6 @@ use App\Post;
 
 class PostController extends Controller
 {
-//  protected $fillable =  ['title', 'subtitle', 'page_image', 'content_raw', 'meta_description','is_draft', 'published_at'];
   /**
    * Display a listing of the posts.
    */
