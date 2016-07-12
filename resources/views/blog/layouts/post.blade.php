@@ -12,13 +12,13 @@
                     <div class="post-heading">
                         <h1>{{ $post->title }}</h1>
                         <h2 class="subheading">{{ $post->subtitle }}</h2>
-            <span class="meta">
-              Posted on {{ $post->published_at->format('F j, Y') }}
-                @if ($post->tags->count())
-                    in
-                    {!! join(', ', $post->tagLinks()) !!}
-                @endif
-            </span>
+                        <span class="meta">
+                          Posted on {{ $post->published_at->format('F j, Y') }}
+                            @if ($post->tags->count())
+                                in
+                                {!! join(', ', $post->tagLinks()) !!}
+                            @endif
+                        </span>
                     </div>
                 </div>
             </div>

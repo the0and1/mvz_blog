@@ -9,29 +9,21 @@ jQuery(document).ready(function($) {
 
     //primary navigation slide-in effect
     if ($(window).width() > MQL) {
-        var headerHeight = $('.navbar-custom').height();
+        var headerHeight = $('.navbar-custom').height(),
+            bannerHeight = $('.intro-header').height();
         $(window).on('scroll', {
                 previousTop: 0
             },
             function() {
+                console.log(bannerHeight);
                 var currentTop = $(window).scrollTop();
 
-                //if user is scrolling up
-                if (currentTop < this.previousTop) {
-                    if (currentTop > 0 && $('.navbar-custom').hasClass('is-fixed')) {
-                        $('.navbar-custom').addClass('is-visible');
-                    } else {
-                        $('.navbar-custom').removeClass('is-visible is-fixed');
-                    }
-                    //if scrolling down...
+                //if window below banner height, then add class
+                if(currentTop > bannerHeight) {
+                    $('.navbar-custom').addClass('is-below-header');
                 } else {
-                    $('.navbar-custom').removeClass('is-visible');
-                    if (currentTop > headerHeight &&
-                        !$('.navbar-custom').hasClass('is-fixed')) {
-                        $('.navbar-custom').addClass('is-fixed');
-                    }
+                    $('.navbar-custom').removeClass('is-below-header');
                 }
-                this.previousTop = currentTop;
             });
     }
 

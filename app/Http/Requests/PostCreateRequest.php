@@ -43,6 +43,7 @@ class PostCreateRequest extends Request
       'subtitle' => $this->subtitle,
       'page_image' => $this->page_image,
       'content_raw' => $this->get('content'),
+      'content_html' => $this->get('content'),
       'meta_description' => $this->meta_description,
       'is_draft' => (bool)$this->is_draft,
       'published_at' => $published_at,
