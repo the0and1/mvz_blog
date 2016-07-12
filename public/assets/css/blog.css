@@ -6826,11 +6826,13 @@ hr.small {
   font-size: 30px;
   margin-top: 30px;
   margin-bottom: 10px;
+  color: #002288;
 }
 .post-preview > a > .post-subtitle {
   margin: 0;
   font-weight: 300;
   margin-bottom: 10px;
+  color: #002288;
 }
 .post-preview > .post-meta {
   color: #808080;
