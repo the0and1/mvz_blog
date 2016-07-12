@@ -6828,11 +6828,17 @@ hr.small {
   margin-bottom: 10px;
   color: #002288;
 }
+.post-preview > a > .post-title:hover {
+  color: #0085A1;
+}
 .post-preview > a > .post-subtitle {
   margin: 0;
   font-weight: 300;
   margin-bottom: 10px;
   color: #002288;
+}
+.post-preview > a > .post-subtitle:hover {
+  color: #0085A1;
 }
 .post-preview > .post-meta {
   color: #808080;
